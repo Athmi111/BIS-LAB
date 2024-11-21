@@ -1,3 +1,4 @@
+
 import numpy as np
 import random
 
@@ -96,16 +97,34 @@ class ACO_TSP:
             # Add pheromone for return to start
             self.pheromone_matrix[route[-1]][route[0]] += pheromone_to_add
 
-# Define the cities as (x, y) coordinates
-cities = [(0, 0), (1, 5), (2, 3), (5, 2), (4, 0)]
-num_ants = 10
-alpha = 1.0
-beta = 2.0
-rho = 0.5
-iterations = 100
+
+# Function to get user-defined values
+def get_user_defined_values():
+    # Number of cities
+    num_cities = int(input("Enter the number of cities: "))
+    cities = []
+    for i in range(num_cities):
+        x = float(input(f"Enter x coordinate for city {i+1}: "))
+        y = float(input(f"Enter y coordinate for city {i+1}: "))
+        cities.append((x, y))
+
+    # ACO parameters
+    num_ants = int(input("Enter the number of ants: "))
+    alpha = float(input("Enter the alpha (pheromone importance): "))
+    beta = float(input("Enter the beta (heuristic importance): "))
+    rho = float(input("Enter the rho (pheromone evaporation rate): "))
+    iterations = int(input("Enter the number of iterations: "))
+    
+    return cities, num_ants, alpha, beta, rho, iterations
+
+
+# Get user-defined input
+cities, num_ants, alpha, beta, rho, iterations = get_user_defined_values()
 
 # Run the ACO algorithm
 aco_tsp = ACO_TSP(cities, num_ants, alpha, beta, rho, iterations)
 best_route, best_distance = aco_tsp.run()
+
+# Output the results
 print(f"Best route: {best_route}")
 print(f"Best distance: {best_distance}")
